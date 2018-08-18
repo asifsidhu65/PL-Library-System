@@ -1,0 +1,43 @@
+{% extends 'auth_base.html' %}
+{% load widget_tweaks %}
+
+
+{% block content %}
+
+    <section id="login">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="form-wrap">
+                        <h1>Log in with your account</h1>
+                        <form role="form" method="post" id="login-form" autocomplete="off" novalidate>
+                            {% if form.non_field_errors %}
+                                <div class="alert alert-danger">{{ form.non_field_errors }}</div>
+                            {% endif %}
+                            {% csrf_token %}
+                            <div class="form-group">
+                                {{ form.username.label_tag}}
+                                {{ form.username|add_class:"form-control" }}
+                                <span class="text-danger">{{ form.username.errors.0 }}</span>
+                            </div>
+
+                            <div class="form-group">
+                                {{ form.password.label_tag}}
+                                {{ form.password|add_class:"form-control" }}
+                                <span class="text-danger">{{ form.password.errors.0 }}</span>
+                            </div>
+                            <div class="form-group">
+                                {{ form.remember|add_class:"" }}
+                                {{ form.remember.label_tag}}
+                            </div>
+                            <input type="submit" id="btn-login" class="btn btn-custom btn-lg btn-block" value="Log in">
+                        </form>
+                        <a href="{% url 'authurls:signup' %}" class="forget" >Do not have account ?</a>
+                        <hr>
+                    </div>
+                </div> <!-- /.col-xs-12 -->
+            </div> <!-- /.row -->
+        </div> <!-- /.container -->
+    </section>
+
+{% endblock %}

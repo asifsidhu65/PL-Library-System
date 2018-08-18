@@ -1,0 +1,23 @@
+{% extends 'auth_base.html' %}
+{% load widget_tweaks %}
+
+
+{% block content %}
+
+    <section id="login">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="form-wrap">
+                        <p class="alert alert-success">
+                            You are successfully Logged out from your account. <br>
+                            <a href="{% url 'authurls:login' %}">Wannad login again ?</a>
+                        </p>
+                        <hr>
+                    </div>
+                </div> <!-- /.col-xs-12 -->
+            </div> <!-- /.row -->
+        </div> <!-- /.container -->
+    </section>
+
+{% endblock %}
