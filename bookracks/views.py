@@ -13,6 +13,9 @@ class RacksListView(ListView):
     template_name = 'bookracks/racks/index.html'
     paginate_by = 10
 
+    def get_queryset(self):
+        return super(RacksListView, self).get_queryset().order_by('-id')
+
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super(RacksListView, self).get_context_data(object_list=None, **kwargs)
         return context
@@ -29,7 +32,7 @@ class BooksListView(ListView):
     template_name = 'bookracks/books/index.html'
 
     def get_queryset(self):
-        query = super(BooksListView, self).get_queryset()
+        query = super(BooksListView, self).get_queryset().order_by('-id')
         qry = self.request.GET.get('search')
         if qry:
             query = query.filter(Q(title__contains=qry)|Q(published_year__contains=qry)|Q(authors__name__contains=qry))
