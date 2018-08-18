@@ -1,7 +1,15 @@
 from django.contrib import admin
+from django.contrib.admin import TabularInline
+
 from . models import *
 
 # Register your models here.
+
+
+class BooksTabularInline(TabularInline):
+    model = Book
+    max_num = 10
+    readonly_fields = ['slug']
 
 
 class BookRacksAdmin(admin.ModelAdmin):
@@ -9,6 +17,9 @@ class BookRacksAdmin(admin.ModelAdmin):
     search_fields = ('name', 'slug', 'created', 'modified')
     date_hierarchy = 'created'
     readonly_fields = ('slug',)
+    inlines = [
+        BooksTabularInline
+    ]
 
 
 class AuthorAdmin(admin.ModelAdmin):

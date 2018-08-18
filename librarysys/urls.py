@@ -21,8 +21,8 @@ from librarysys.views import Index
 urlpatterns = [
     path('', Index.as_view()),
     path('admin/', admin.site.urls),
-    path('auth/user/', include(('authusers.urls', 'authusers'), namespace="authurls")),
-
+    path('auth/users/', include(('authusers.urls', 'authusers'), namespace="authurls")),
+    path('book/', include(('bookracks.urls', 'bookracks'), namespace="racks")),
 ]
 
 

@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+
+    <h2>Book Racks</h2>
+
+    <div class="panel panel-default">
+        <div class="panel-heading">Racks List</div>
+        <div class="panel-body" style="padding: 0">
+            <table class="table tabel-hover" style="margin-bottom: 0px">
+                <thead>
+                <tr>
+                    <td>ID</td>
+                    <td>Name</td>
+                    <td>Total Books</td>
+                    <td>Actions</td>
+                </tr>
+                </thead>
+                <tbody>
+                {% for rack in object_list %}
+                    <tr>
+                        <td>{{ rack.id }}</td>
+                        <td> <a href="{% url 'racks:racks_detail' rack.slug %}"> {{ rack.name }} </a></td>
+                        <td>{{ rack.total_books }}</td>
+                        <td>
+                            <a href="{% url 'racks:racks_detail' rack.slug %}"><i class="fa fa-eye"></i></a>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% if is_paginated and paginator.page_range %}
+            <div class="panel-footer">
+                {% include 'elements/pagination.html' %}
+            </div>
+        {% endif %}
+    </div>
+
+{% endblock %}

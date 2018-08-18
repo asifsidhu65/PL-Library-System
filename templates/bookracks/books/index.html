@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+
+    <h2>Books</h2>
+    <hr>
+
+    <form class="form-inline" method="get">
+        <div class="input-group">
+
+            <input name="search" type="text" class="form-control" placeholder="Book(title, Year, Author)" value="{{ search }}">
+            <span class="input-group-btn">
+                <button class="btn btn-default" type="submit">Search</button>
+            </span>
+        </div><!-- /input-group -->
+
+    </form>
+
+    <br>
+
+    <div class="panel panel-default">
+        <div class="panel-heading">Books list</div>
+        <div class="panel-body" style="padding: 0">
+            <table class="table tabel-hover" style="margin-bottom: 0px">
+                <thead>
+                <tr>
+                    <td>ID</td>
+                    <td>title</td>
+                    <td>Authors</td>
+                    <td>Published Year</td>
+                    <td>Rack</td>
+                </tr>
+                </thead>
+                <tbody>
+                {% for book in object_list %}
+                    <tr>
+                        <td>{{ book.id }}</td>
+                        <td>{{ book.title }}</td>
+                        <td>
+                            {% for author in book.authors.all %}
+                                {{ author.name }}
+                            {% endfor %}
+                        </td>
+                        <td>{{ book.published_year }}</td>
+                        <td>
+                            <a href="{% url 'racks:racks_detail' book.book_rack.slug %}">{{ book.book_rack.name }}</a>
+                        </td>
+
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% if is_paginated and paginator.page_range %}
+            <div class="panel-footer">
+                {% include 'elements/pagination.html' %}
+            </div>
+        {% endif %}
+
+    </div>
+
+
+{% endblock %}

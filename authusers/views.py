@@ -53,10 +53,10 @@ class AuthSignupView(AnonymousRequiredMixin, FormView):
 
 
 class AuthLogoutView(LoginRequiredMixin, View):
-    http_method_names = ['post']
+    http_method_names = ['get']
     template_name = 'authusers/logout.html'
 
-    def post(self, *args, **kwargs):
+    def get(self, *args, **kwargs):
         auth.logout(self.request)
         return render(self.request, self.template_name, context={})
 

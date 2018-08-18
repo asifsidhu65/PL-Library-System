@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+
+    <h2>Book Racks >> {{ object.name }}</h2>
+
+    <div class="panel panel-default">
+        <div class="panel-heading">{{ object.name }} books list</div>
+        <div class="panel-body" style="padding: 0">
+            <table class="table tabel-hover" style="margin-bottom: 0px">
+                <thead>
+                <tr>
+                    <td>ID</td>
+                    <td>title</td>
+                    <td>Authors</td>
+                    <td>Published Year</td>
+                    <td>Actions</td>
+                </tr>
+                </thead>
+                <tbody>
+                {% for book in object.book_set.all %}
+                    <tr>
+                        <td>{{ book.id }}</td>
+                        <td>{{ book.title }}</td>
+                        <td>
+                            {% for author in book.authors.all %}
+                                {{ author.name }},
+                            {% endfor %}
+                        </td>
+                        <td>{{ book.published_year }}</td>
+                        <td>
+                            <a href=""><i class="fa fa-eye"></i></a>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+
+{% endblock %}

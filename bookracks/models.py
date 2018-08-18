@@ -2,6 +2,21 @@ from django.db import models
 from django.utils.text import slugify
 
 
+def get_unique_slug(model_instance, slugable_field_name, slug_field_name):
+    slug = slugify(getattr(model_instance, slugable_field_name))
+    unique_slug = slug
+    extension = 1
+    ModelClass = model_instance.__class__
+
+    while ModelClass._default_manager.filter(
+            **{slug_field_name: unique_slug}
+    ).exclude(pk=model_instance.pk).exists():
+        unique_slug = '{}-{}'.format(slug, extension)
+        extension += 1
+
+    return unique_slug
+
+
 class DefaultModel(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     modified = models.DateTimeField(auto_now=True)
@@ -23,7 +38,7 @@ class BookRack(DefaultModel):
         return self.name
 
     def save(self, *args, **kwargs):
-        self.slug = slugify(self.name)
+        self.slug = get_unique_slug(self, 'name', 'slug')
         super(BookRack, self).save(*args, **kwargs)
 
 
@@ -39,7 +54,7 @@ class Author(DefaultModel):
         return self.name
 
     def save(self, *args, **kwargs):
-        self.slug = slugify(self.name)
+        self.slug = get_unique_slug(self, 'name', 'slug')
         super(Author, self).save(*args, **kwargs)
 
 
@@ -54,7 +69,7 @@ class Book(DefaultModel):
         return self.title
 
     def save(self, *args, **kwargs):
-        self.slug = slugify(self.title)
+        self.slug = get_unique_slug(self, 'title', 'slug')
         super(Book, self).save(*args, **kwargs)
 
 
