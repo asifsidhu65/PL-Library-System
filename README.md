@@ -23,3 +23,6 @@ django-widget-tweaks==1.4.2
 
 pytz==2018.5
 
+# Demo
+Soon demo link will be added.
+
