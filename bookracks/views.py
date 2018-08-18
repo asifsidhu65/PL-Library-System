@@ -1,3 +1,4 @@
+from braces.views import LoginRequiredMixin
 from django.db.models import Q
 from django.shortcuts import render
 
@@ -8,7 +9,7 @@ from django.views.generic import ListView, DetailView
 from bookracks.models import BookRack, Book
 
 
-class RacksListView(ListView):
+class RacksListView(LoginRequiredMixin, ListView):
     model = BookRack
     template_name = 'bookracks/racks/index.html'
     paginate_by = 10
@@ -21,12 +22,12 @@ class RacksListView(ListView):
         return context
 
 
-class RacksDetailView(DetailView):
+class RacksDetailView(LoginRequiredMixin, DetailView):
     template_name = 'bookracks/racks/detail.html'
     model = BookRack
 
 
-class BooksListView(ListView):
+class BooksListView(LoginRequiredMixin, ListView):
     model = Book
     paginate_by = 10
     template_name = 'bookracks/books/index.html'

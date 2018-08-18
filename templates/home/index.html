@@ -2,6 +2,26 @@
 
 {% block content %}
 
+    <style type="text/css">
+        .searchbar{
+            margin-top: 100px;
+        }
+    </style>
+
     <h1>Pure Logics Library</h1>
+    <p>Hello {{ request.user.first_name }} {{ request.user.last_name }}, welcome on Pure Logics e-book.</p>
+
+    <form action="{% url 'racks:books_list' %}" method="get">
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <div class="form-group searchbar">
+                    <input class="form-control input-lg" name="search" placeholder="Search book by title, author and published year">
+                </div>
+                <div class="form-group text-center">
+                    <button type="submit" class="btn btn-lg btn-success" style="background: #709b8f;">Search</button>
+                </div>
+            </div>
+        </div>
+    </form>
 
 {% endblock %}
