@@ -64,6 +64,7 @@ class Book(DefaultModel):
     slug = models.SlugField(null=True, blank=True, max_length=255, unique=True)
     authors = models.ManyToManyField(Author)
     published_year = models.CharField(max_length=50)
+    cover_url = models.URLField(null=True, blank=True, max_length=255)
 
     def __str__(self):
         return self.title

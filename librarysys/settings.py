@@ -22,12 +22,13 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/2.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'rwp#(0x9!c#a$*ge*70hcq_rqg3qaw#nvzct(k*0y-94jh1l%_'
+SECRET_KEY = 'a23422et235f523423242323d233123'
+# rwp#(0x9!c#a$*ge*70hcq_rqg3qaw#nvzct(k*0y-94jh1l%_
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['pllibrary.herokuapp.com', '*']
 
 
 # Application definition
@@ -131,16 +132,28 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "public"),
 ]
 
+MEDIA_ROOT = os.path.join(BASE_DIR, "media")
+
+MEDIA_URL = '/media/'
+
+
 SITE_ID = 1
 
 
 ACCOUNT_REMEMBER_ME_EXPIRY = 60 * 60 * 24 * 365 * 10
+
 LOGIN_REDIRECT_URL = '/'
 LOGIN_URL = '/auth/users/login/'
+LOGOUT_REDIRECT_URL = '/'
 
 
 EMAIL_USE_TLS = True
 EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_HOST_USER = 'asif.sidhu65@gmail.com'
+EMAIL_HOST_USER = ''
 EMAIL_HOST_PASSWORD = ''
 EMAIL_PORT = 587
+
+try:
+    from . local_settings import *
+except:
+    pass
