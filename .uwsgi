@@ -1,0 +1,18 @@
+[uwsgi]
+
+# Django-related settings
+chdir           = /home/ubuntu/webapps/PL-Library-System
+
+module          = librarysys.wsgi
+
+home            = /home/ubuntu/.pyenvs/pllibrary/bin/python
+
+# process-related settings
+
+master          = true
+processes       = 10
+socket          = /home/ubuntu/webapps/PL-Library-System/pllibrarysys.sock
+
+# chmod-socket    = 664
+# clear environment on exit
+vacuum          = true
