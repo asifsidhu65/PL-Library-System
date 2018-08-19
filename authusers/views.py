@@ -1,6 +1,6 @@
 from braces.views import AnonymousRequiredMixin, LoginRequiredMixin
-from django.contrib import auth
-from django.contrib.auth import authenticate, login
+from django.contrib import auth, messages
+from django.contrib.auth import authenticate, login, update_session_auth_hash
 from django.contrib.auth.models import User
 from django.http import HttpResponseRedirect
 from django.conf import settings
@@ -9,7 +9,7 @@ from django.shortcuts import render
 # Create your views here.
 from django.views import View
 from django.views.generic import FormView, TemplateView
-from .forms import AuthSignupForm, AuthLoginForm
+from .forms import AuthSignupForm, AuthLoginForm, ChangePasswordForm
 
 
 class AuthLoginView(AnonymousRequiredMixin, FormView):
@@ -60,6 +60,28 @@ class AuthLogoutView(LoginRequiredMixin, View):
         auth.logout(self.request)
         return render(self.request, self.template_name, context={})
 
+
+class AuthChangePassword(LoginRequiredMixin, FormView):
+    template_name = 'authusers/change_password.html'
+    form_class = ChangePasswordForm
+
+    def get_form_kwargs(self):
+
+        kwargs = {"user": self.request.user, "initial": self.get_initial()}
+        if self.request.method in ["POST", "PUT"]:
+            kwargs.update({
+                "data": self.request.POST,
+                "files": self.request.FILES,
+            })
+        return kwargs
+    
+    def form_valid(self, form):
+        user = self.request.user
+        user.set_password(form.cleaned_data.get('password_new'))
+        user.save()
+        update_session_auth_hash(self.request, user)
+        messages.success(self.request, 'Password has been changed.')
+        return HttpResponseRedirect("/")
 
 
 

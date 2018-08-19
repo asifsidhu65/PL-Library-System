@@ -48,8 +48,7 @@
                         Hello {{ request.user.first_name }} <span class="caret"></span>
                     </a>
                     <ul class="dropdown-menu">
-                        <li><a href="#">Profile</a></li>
-                        <li><a href="#">Change Password</a></li>
+                        <li><a href="{% url 'authurls:changepassword' %}">Change Password</a></li>
                         <li role="separator" class="divider"></li>
                         <li><a href="{% url 'authurls:logout' %}">Logout</a></li>
                     </ul>
@@ -65,6 +64,14 @@
 
 
     <!-- Main component for a primary marketing message or call to action -->
+
+    {% if messages %}
+
+        {% for message in messages %}
+            <div{% if message.tags %} class="alert alert-{{ message.tags }}"{% endif %}>{{ message }}</div>
+        {% endfor %}
+
+    {% endif %}
 
     {% block content %}{% endblock %}
 
