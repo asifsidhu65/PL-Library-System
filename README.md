@@ -24,5 +24,16 @@ django-widget-tweaks==1.4.2
 pytz==2018.5
 
 # Demo
-Soon demo link will be added.
 
+Admin demo: 
+
+url: http://18.216.175.17/admin/
+username: admin
+password: 123456
+
+
+Normal User:
+
+url: http://18.216.175.17/
+username: testpl
+password: 123456
