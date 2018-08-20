@@ -31,3 +31,9 @@ url: http://18.216.175.17/admin/
 username: admin
 password: 123456
 
+
+Normal User:
+
+url: http://18.216.175.17/
+username: testpl
+password: 123456
