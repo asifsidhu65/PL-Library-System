@@ -27,5 +27,5 @@ urlpatterns = [
 
 
 admin.site.site_header = 'PureLogics Library System'
-admin.site.index_title = 'Features area'
+admin.site.index_title = 'Admin'
 admin.site.site_title = 'PLS Administration'
